@@ -9,7 +9,7 @@ struct Book{
     int year;
 };
 void displayDetails(Book* b){
-    cout<<"Book Title: "<<b->title<<endl;
+    cout<<"\nBook Title: "<<b->title<<endl;
     cout<<"Author: "<<b->author<<endl;
     cout<<"Year of publication: "<<b->year<<endl;
     cout<<"Genre: "<<b->genre<<endl;
@@ -23,17 +23,17 @@ Book* findBook(string search, Book* books, int size){
     return nullptr; //returns null pointer if no Book object is found
 }
 void inputDetails(Book* b){
-    cout<<"Book Title: ";
-    std::cin.ignore();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+    cout<<"\nBook Title: ";
+    // cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
     getline(cin,b->title);
     cout<<"Author: ";
-    std::cin.ignore();
+    //  cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
     getline(cin,b->author);
+    cout<<"Genre: ";
+    getline(cin,b->genre);
     cout<<"Year of publication: ";
     cin>>b->year;
-    cout<<"Genre: ";
-    std::cin.ignore();
-    getline(cin,b->genre);
 }
 void addBook(Book*& books, int& size){ //function allocates memory for a new struct array, copies the book objects into the new array from the prevoius book array & prompts the user for the new Book details
     size++; 
@@ -50,9 +50,9 @@ int main(){
   int size = 0;
   int choice;
   string search;
-  cout<<"Menu: "<<endl;
+  cout<<"MENU"<<endl;
   do{
-  cout<<"Press 1 to add a new book to the collection\nPress 2 to update existing book data\nPress 3 to search for a book\nPress 4 to exit"<<endl;
+  cout<<"\nPress 1 to add a new book to the collection\nPress 2 to update existing book data\nPress 3 to search for a book\nPress 4 to exit"<<endl;
   cin>>choice;
   switch(choice){
     case 1:
@@ -77,7 +77,7 @@ int main(){
                     displayDetails(bookPtr);
                 }
             } else {
-                cout << "Book not found";
+                cout << "Book not found"<<endl;
             }
         }
         break;
