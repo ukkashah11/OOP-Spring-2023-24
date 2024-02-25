@@ -84,7 +84,7 @@ void menu(User u) {
          << "\t4. Exit Menu\n"
          << ">> ";
 }
-void get_receipt(User &user, Restaurant &res) const{
+void get_receipt(User &user, Restaurant &res){
     int index = user.has_valid_coupon(res.restaurant_code);
     cout << "Coupon available" << endl;
     cout << user.coupons[index].restaurant_code << "-BOGO-" << user.coupons[index].coupon_code << endl;
