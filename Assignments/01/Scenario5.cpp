@@ -57,23 +57,21 @@ public:
     vector<BOGOCoupon> coupons, redeemed_coupons;
     User(string name, string phone, int age) : name(name), mobile_number(phone), age(age) {}
     void accumulate_coupon(BOGOCoupon coupon) { coupons.push_back(coupon); }
-    bool is_redeemed(BOGOCoupon coupon) {
-        for (BOGOCoupon redeemed : redeemed_coupons)
-            if (coupon.coupon_code == redeemed.coupon_code) return true;
-        return false;
-    }
     int has_valid_coupon(string res_code) {
         for (int i = 0; i < coupons.size(); i++)
             if (!is_redeemed(coupons[i]) && coupons[i].is_valid(res_code, 8)) return i;
         return -1;
     }
-
+    bool is_redeemed(BOGOCoupon coupon) {
+        for (BOGOCoupon redeemed : redeemed_coupons)
+            if (coupon.coupon_code == redeemed.coupon_code) return true;
+        return false;
+    }
     bool redeem_coupon(int coupon, string res_code) {
         if (!is_redeemed(coupons[coupon]) && coupons[coupon].is_valid(res_code, 8)) {
             redeemed_coupons.push_back(coupons[coupon]);
             return true;
         }
-
         return false;
     }
 };
@@ -86,16 +84,13 @@ void menu(User u) {
          << "\t4. Exit Menu\n"
          << ">> ";
 }
-
-void get_receipt(User &user, Restaurant &res) {
+void get_receipt(User &user, Restaurant &res) const{
     int index = user.has_valid_coupon(res.restaurant_code);
-
     cout << "Coupon available" << endl;
     cout << user.coupons[index].restaurant_code << "-BOGO-" << user.coupons[index].coupon_code << endl;
     cout << "Would you like to avail? (Y/N): ";
     char choice;
     cin >> choice;
-
     if (choice == 'N' || choice == 'n') {
         res.generate_bill();
         return;
