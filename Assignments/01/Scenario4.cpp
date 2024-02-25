@@ -1,3 +1,7 @@
+/*Syed Ukkashah Ahmed Shah
+  23K-0055
+  Added comments where necessary
+*/
 #include<iostream>
 using namespace std;
 class RollerCoaster{
