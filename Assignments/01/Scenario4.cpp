@@ -59,6 +59,7 @@ class RollerCoaster{
         if(ride_inprog)
         {
             ride_inprog = false;
+            speed = 0;
             cout<<"Ride stopped"<<endl;
         }
         else{
@@ -72,6 +73,7 @@ class RollerCoaster{
             return 0;
         }
         else{
+            current_riders = capacity;
             return abs(capacity - (current_riders+passengers));
         }
     }
@@ -79,8 +81,9 @@ class RollerCoaster{
         if(ride_inprog)return -1;
         if(current_riders == capacity){
             ride_inprog = true;
+            speed=10;
             cout<<"Ride started"<<endl;
-            return 1;
+            return 0;
         }
         else{
             return capacity - current_riders;
@@ -105,7 +108,7 @@ class RollerCoaster{
     		return;
     	}
     }
-    RollerCoaster(string name, float height, float length, unsigned short capacity): name(name), height(height), length(length), capacity(capacity), ride_inprog(false){
+    RollerCoaster(string name, float height, float length, unsigned short capacity): name(name), height(height), length(length), capacity(capacity), ride_inprog(false), speed(0){
         if(capacity%2 != 0 || capacity%3 != 0){
             capacity = (capacity + 1) / 2*2; //rounding off to closest multiple of 2
             if(capacity<=3){
@@ -125,20 +128,21 @@ int main(){
     RollerCoaster rc1;
     RollerCoaster rc2("roller coaster 2", 550, 1800, 15);
     cout << rc2.getName() << " " << rc2.getCapacity() << endl;
+    rc2.seatRiders(15);
     rc2.startRide();
-	rc2.seatRiders(8);
 	rc2.stopRide();
+    rc2.unseatRiders(12);
     cout << "Riders not seated: " << rc2.seatRiders(39) << endl;
 	cout << "Current riders: " << rc2.getCurrentRiders() << endl;
 	cout << "Not occupied seats: " << rc2.startRide() << endl;
     rc2.accelerate("0055");
 	cout << "Speed: " << rc2.getSpeed() << endl;
-	for (int i = 0; i < 8; i++) rc2.decelerate("0055");
+	rc2.decelerate("0055");
 	cout << "Speed: " << rc2.getSpeed() << endl;
 	rc2.stopRide();
 	cout << "Ride status: ";
     if(rc2.isRideInProg()) cout<<" in progress"<<endl;
-    else cout<<" not in progress";
+    else cout<<" not in progress"<<endl;
 	rc2.unseatRiders(3);
 	cout << "Current riders: " << rc2.getCurrentRiders() << endl;
 
