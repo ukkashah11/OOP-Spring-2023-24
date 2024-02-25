@@ -129,6 +129,7 @@ class RollerCoaster{
     }
 };
 int main(){
+    cout<<"SYED UKKASHAH\n23K-0055\n\n"<<endl;
     RollerCoaster rc1;
     RollerCoaster rc2("roller coaster 2", 550, 1800, 15);
     cout << rc2.getName() << " " << rc2.getCapacity() << endl;
