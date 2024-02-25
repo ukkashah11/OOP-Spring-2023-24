@@ -1,8 +1,11 @@
+/*Syed Ukkashah Ahmed Shah
+  23K-0055
+  Added comments where necessary
+*/
 #include <iostream>
 #include <vector>
 #include <cctype>
 #include<cstdlib>
-#define SKILLS 2
 using namespace std;
 const string health[4] = { "Very Healthy", "Healthy", "Sick", "Very Sick" };
 bool isAllDigits(const std::string& str) {
@@ -27,10 +30,11 @@ void menu(string name) {
 }
 class Pet{
     private:
-    string healthStatus = health[1], Species, specialSkills[SKILLS], petName; 
+    string healthStatus = health[1], Species, petName; 
+    vector<string>specialSkills;
     unsigned int hungerLevel = 7, happinessLevel = 6;
     public:
-    Pet(string name, string species, string skill1, string skill2): petName(name), Species(species), specialSkills({skill1, skill2}){}
+    Pet(string name, string species, vector<string>skills): petName(name), Species(species), specialSkills(skills){}
     void setName(string name){
         petName = name;
     }
@@ -71,38 +75,50 @@ class Pet{
         cout<<"Health Status: "<<getHealthStatus()<<endl;
         cout<<"Hunger Level: "<<getHungerLevel()<<endl;
         cout<<"Happiness Level: "<<getHappinessLevel()<<endl;
-        cout<<"Special Skills"<<endl;
+        cout<<"Special Skills: "<<endl;
         for(string s: specialSkills)cout<<s<<endl;
         cout<<endl;
     }
 };
+vector<string> inputSkills() {
+	vector<string> specialSkills;
+	string str;
+    while(1){
+        cout<<"Enter skill (-1 to exit): ";
+        getline(cin, str);
+        if(str != "-1"){
+            specialSkills.push_back(str);
+        }
+        else{
+            break;
+        }
+    }
+	return specialSkills;
+}
 Pet getPetDetails(){
-    string name, skill1, skill2, species;
+    string name,species;
     cout<<"Enter pet name: ";
     getline(cin, name);
     cout<<"Enter Species: ";
     getline(cin, species);
-    cout<<"Enter skills: ";
-    getline(cin, skill1);
-    getline(cin, skill2);
-    return Pet(name, species, skill1, skill2);
+    return Pet(name, species, inputSkills());
 }
 class Adopter{
     public:
     vector<Pet>adoptedPetRecords;
     string adopterName, adopterMobileNum;
     void adoptPet(vector<Pet>& pets, string name){
-        for(int i=0; i<pets.size(); i++){
-            if(pets[i].getPetName()==name){
-                pets.erase(pets.begin()+i);
-                adoptedPetRecords.push_back(pets[i]);
-                cout<<"Pet adopted"<<endl;
-            }
-            else{
-                cout<<"Pet not found"<<endl;
-            }
+    for(int i=0; i<pets.size(); i++){
+        if(pets[i].getPetName()==name){
+            adoptedPetRecords.push_back(pets[i]);
+            pets.erase(pets.begin()+i); 
+            cout << "Pet adopted" << endl;
+            return; 
         }
     }
+    cout << "Pet not found" << endl;
+}
+
     void returnPet(string name, vector<Pet>& pets){
         for(int i=0; i<adoptedPetRecords.size(); i++){
             if(adoptedPetRecords[i].getPetName()==name){
@@ -124,49 +140,64 @@ class Adopter{
         }
     }
     void interactWithPet(string name, vector<Pet>& pets){
-         for(int i=0; i<pets.size(); i++){
-            if(pets[i].getPetName()==name){
-                int choice, mood, hunger;
-                string name;
-                cout<<"\tEnter 1 to change Pet's happiness levels"<<endl;
-                cout<<"\tEnter 2 to change Pet's hunger levels"<<endl;
-                cout<<"\tEnter 3 to change Pet's name"<<endl;
-                cin>>choice;
-                switch (choice){
-                    case 1:
-                    cout<<"Enter Pet happiness level from 1-10: ";
-                    cin>>mood;
-                    if(mood<0 || mood>10){
-                        cout<<"Invalid input"<<endl;
+    bool found = false; // Flag to track if the pet is found
+    for(int i=0; i<pets.size(); i++){
+        if(pets[i].getPetName() == name){
+            found = true; // Pet found
+            int choice, mood, hunger;
+            cout << "\tEnter 1 to change Pet's happiness levels" << endl;
+            cout << "\tEnter 2 to change Pet's hunger levels" << endl;
+            cout << "\tEnter 3 to change Pet's name" << endl;
+            cin >> choice;
+            cin.ignore(); // Ignore newline after cin to use getline properly
+            switch (choice){
+                case 1:
+                    cout << "Enter Pet happiness level from 1-10: ";
+                    cin >> mood;
+                    if(mood < 0 || mood > 10){
+                        cout << "Invalid input" << endl;
                     }
                     else{
-                    pets[i].updateHappiness(mood);
+                        pets[i].updateHappiness(mood);
                     }
                     break;
-                    case 2:
-                    cout<<"Enter Hunger Levels (1-10): ";
-                    cin>>hunger;
-                    pets[i].updateHunger(hunger);
+                case 2:
+                    cout << "Enter Hunger Levels (1-10): ";
+                    cin >> hunger;
+                    if(hunger<0 || hunger>10){
+                        cout<<"Invalid input"<<endl;
+                    }
+                    
+                    else{
+                        pets[i].updateHunger(hunger);
+                    }
                     break;
-                    case 3:
-                    cout<<"Enter Pet's name: ";
+                case 3:
+                    cout << "Enter Pet's new name: ";
                     getline(cin, name);
                     pets[i].setName(name);
                     break;
-                    default:
-                    cout<<"Invalid input"<<endl;
-                }
-                if (pets[i].getHungerLevel() >= 8 && pets[i].getHappinessLevel()>= 8) pets[i].updateHealth(health[0]);
-	           else if (pets[i].getHungerLevel() >= 60 && pets[i].getHappinessLevel() >= 60) pets[i].updateHealth(health[1]);
-	           else if (pets[i].getHungerLevel() >= 40 && pets[i].getHappinessLevel() >= 40) pets[i].updateHealth(health[2]);
-	           else pets[i].updateHealth(health[3]);
+                default:
+                    cout << "Invalid input" << endl;
             }
-            else{
-                cout<<"Pet not found"<<endl;
-            }
-            
+            // Update health status based on conditions
+            if (pets[i].getHungerLevel() >= 8 && pets[i].getHappinessLevel() >= 8)
+                pets[i].updateHealth(health[0]);
+            else if (pets[i].getHungerLevel() >= 6 && pets[i].getHappinessLevel() >= 6)
+                pets[i].updateHealth(health[1]);
+            else if (pets[i].getHungerLevel() >= 4 && pets[i].getHappinessLevel() >= 4)
+                pets[i].updateHealth(health[2]);
+            else
+                pets[i].updateHealth(health[3]);
+
+            break; // Exit the loop after finding and interacting with the pet
         }
     }
+    if (!found){
+        cout << "Pet not found" << endl;
+    }
+}
+
     Adopter(string name, string num):adopterName(name){
         setMobileNum(num);
     }
