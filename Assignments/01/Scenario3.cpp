@@ -51,7 +51,7 @@ private:
 ChessPiece* board[8][8];
 public:
 ChessBoard() {
-		// init white pieces
+	// init all pieces
         board[0][0] = new ChessPiece("Rook", "white");
         board[0][1] = new ChessPiece("Knight", "white");
         board[0][2] = new ChessPiece("Bishop", "white");
@@ -60,11 +60,7 @@ ChessBoard() {
         board[0][5] = new ChessPiece("Bishop", "white");
         board[0][6] = new ChessPiece("Knight", "white");
         board[0][7] = new ChessPiece("Rook", "white");
-
-        // init white pawns
         for (int i = 0; i < 8; i++) board[1][i] = new ChessPiece();
-
-        // init black pieces
         board[7][0] = new ChessPiece("Rook", "black");
         board[7][1] = new ChessPiece("Knight", "black");
         board[7][2] = new ChessPiece("Bishop", "black");
@@ -73,11 +69,7 @@ ChessBoard() {
         board[7][5] = new ChessPiece("Bishop", "black");
         board[7][6] = new ChessPiece("Knight", "black");
         board[7][7] = new ChessPiece("Rook", "black");
-
-        // init black pawns
         for (int i = 0; i < 8; i++) board[6][i] = new ChessPiece("Pawn", "black");
-
-        // empty slots
         for (int i = 2; i < 6; i++) {
             for (int j = 0; j < 8; j++) {
                 board[i][j] = new ChessPiece(".", "none");
@@ -105,7 +97,6 @@ void display() const
 		int dest_row = 7-(destination[1]-'1'), dest_col = destination[0]-'a', src_row = 7-(source[1]-'1'), src_col = source[0]-'a';
 		char src_name = board[src_row][src_col]->getSymbol(), dest_name = board[dest_row][dest_col]->getSymbol(); // chess piece name
 		cout << "validating move for '" << src_name << "' from " << source << " to " << destination << ":" << endl;
-
 		if (src_name == 'n' || src_name == 'N') {
 			bool vertical = abs(dest_row - src_row) == 2 && abs(dest_col - src_col) == 1; // 2 up/down and 1 right/left
 			bool horizontal = abs(dest_row - src_row) == 1 && abs(dest_col - src_col) == 2; // 1 up/down and 2 right/left
@@ -128,13 +119,13 @@ int main(){
 	board.display();
 	cout << endl << endl;
 	// invalid move - knight
-	cout << (board.movePiece("b8", "c7") ? "valid" : "not valid") << endl << endl;
+	cout << (board.movePiece("a4", "c7") ? "valid" : "not valid") << endl << endl;
 	// valid move - knight
 	cout << (board.movePiece("b8", "c6") ? "valid" : "not valid") << endl << endl;
 	// invalid move - pawn
-	cout << (board.movePiece("b7", "b4") ? "valid" : "not valid") << endl << endl;
+	cout << (board.movePiece("e6", "b4") ? "valid" : "not valid") << endl << endl;
 	// valid move - pawn
 	cout << (board.movePiece("b7", "b5") ? "valid" : "not valid") << endl << endl;
+	board.display();
 	return 0;
-    
 }
