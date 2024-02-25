@@ -125,17 +125,11 @@ User create_user() {
 int main()
 {
     cout<<"SYED UKKASHAH\n23K-0055\n\n"<<endl;
-    Restaurant r1("Food Haven", "City Center", "FH",
-        { "Sushi", "Pad Thai", "Mango Tango" },
-        { 8.99, 13.99, 9.99 }
-    );
-    Restaurant r2("Pixel Bites", "Cyber Street", "PB",
-        { "Binary Burger", "Quantum Quinoa", "Data Donuts" },
-        { 12.99, 6.99, 5.99 }
-    );
+    Restaurant r1("Food Haven", "City Center", "FH",{ "Sushi", "Pad Thai", "Mango Tango" },{ 8.99, 13.99, 9.99 });
+    Restaurant r2("Pixel Bites", "Cyber Street", "PB",{ "Binary Burger", "Quantum Quinoa", "Data Donuts" },{ 12.99, 6.99, 5.99 });
     User user = create_user();
-    user.accumulate_coupon(BOGOCoupon("12345", "FH", 0, 30));
-    user.accumulate_coupon(BOGOCoupon("33367", "PB", 0, 30));
+    user.accumulate_coupon(BOGOCoupon("79834", "FH", 0, 30));
+    user.accumulate_coupon(BOGOCoupon("17902", "PB", 0, 30));
     bool flag = true;
     while(flag) {
         int choice;
