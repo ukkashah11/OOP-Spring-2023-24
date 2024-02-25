@@ -119,11 +119,11 @@ int main(){
 	board.display();
 	cout << endl << endl;
 	// invalid move - knight
-	cout << (board.movePiece("a4", "c7") ? "valid" : "not valid") << endl << endl;
+	cout << (board.movePiece("b8", "c7") ? "valid" : "not valid") << endl << endl;
 	// valid move - knight
 	cout << (board.movePiece("b8", "c6") ? "valid" : "not valid") << endl << endl;
 	// invalid move - pawn
-	cout << (board.movePiece("e6", "b4") ? "valid" : "not valid") << endl << endl;
+	cout << (board.movePiece("b7", "b4") ? "valid" : "not valid") << endl << endl;
 	// valid move - pawn
 	cout << (board.movePiece("b7", "b5") ? "valid" : "not valid") << endl << endl;
 	board.display();
