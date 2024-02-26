@@ -24,7 +24,7 @@ class ChessPiece{
             }
         }
         else{
-            symbol = tolower(name[0]); //lowercase symbol if color is black
+            symbol = tolower(name[0]); //uppercase symbol if color is black
             if(name=="Knight"){
                 symbol = 'n';
             }
@@ -44,14 +44,14 @@ class ChessPiece{
         setColor("white");
         setSymbol();
     }
-    ChessPiece(string name, string color): name(name), color(color){setSymbol();}
+    ChessPiece(string name, string color): name(name), color(color){setSymbol();} 
 };
 class ChessBoard{
 private:
 ChessPiece* board[8][8];
 public:
 ChessBoard() {
-	// initialising all pieces as per the sample in the question paper
+	// initialising all pieces as per the sample in the question paper, Using DMA for the Chess Pieces
         board[0][0] = new ChessPiece("Rook", "white");
         board[0][1] = new ChessPiece("Knight", "white");
         board[0][2] = new ChessPiece("Bishop", "white");
@@ -94,13 +94,13 @@ void display() const
     }
     bool movePiece(string source, string destination) {
 		// getting all positions from string
-		int dest_row = 7-(destination[1]-'1'), dest_col = destination[0]-'a', src_row = 7-(source[1]-'1'), src_col = source[0]-'a';
+		int dest_row = 7-(destination[1]-'1'), dest_col = destination[0]-'a', src_row = 7-(source[1]-'1'), src_col = source[0]-'a'; //
 		char src_name = board[src_row][src_col]->getSymbol(), dest_name = board[dest_row][dest_col]->getSymbol(); // chess piece name
 		cout << "validating move for '" << src_name << "' from " << source << " to " << destination << ":" << endl;
 		if (src_name == 'n' || src_name == 'N') {
 			bool vertical = abs(dest_row - src_row) == 2 && abs(dest_col - src_col) == 1; // 2 up/down and 1 right/left
 			bool horizontal = abs(dest_row - src_row) == 1 && abs(dest_col - src_col) == 2; // 1 up/down and 2 right/left
-			// check for any of the cases and also make sure dest is empty
+			// check for any of the cases and also make sure dest is not occupied by another piece
 			return vertical || horizontal && dest_name == '.';
 		} else if (src_name == 'p' || src_name == 'P') {
 			return src_col == dest_col && // checking if same column
@@ -111,6 +111,13 @@ void display() const
 		}
 		return false;
 	}
+    ~ChessBoard(){ //destructor called to deallocate the memory in the heap for the board pieces
+        for(int i=0; i<8; i++){
+            for(int j=0; j<8; j++){
+                delete board[i][j];
+            }
+        }
+    }
 
 };
 int main(){
@@ -118,14 +125,13 @@ int main(){
     ChessBoard board;
 	board.display();
 	cout << endl << endl;
-	// invalid move - knight
-	cout << (board.movePiece("b8", "c7") ? "valid" : "not valid") << endl << endl;
-	// valid move - knight
+	// invalid move - white knight
+	cout << (board.movePiece("g8", "f7") ? "valid" : "not valid") << endl << endl;
+	// valid move - white knight
 	cout << (board.movePiece("b8", "c6") ? "valid" : "not valid") << endl << endl;
-	// invalid move - pawn
-	cout << (board.movePiece("b7", "b4") ? "valid" : "not valid") << endl << endl;
-	// valid move - pawn
-	cout << (board.movePiece("b7", "b5") ? "valid" : "not valid") << endl << endl;
-	board.display();
+	// invalid move - black pawn
+	cout << (board.movePiece("c2", "h2") ? "valid" : "not valid") << endl << endl;
+	// valid move - black pawn
+	cout << (board.movePiece("e2", "e4") ? "valid" : "not valid") << endl << endl;
 	return 0;
 }
