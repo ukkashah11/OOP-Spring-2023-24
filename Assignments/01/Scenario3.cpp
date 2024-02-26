@@ -51,7 +51,7 @@ private:
 ChessPiece* board[8][8];
 public:
 ChessBoard() {
-	// init all pieces
+	// initialising all pieces as per the sample in the question paper
         board[0][0] = new ChessPiece("Rook", "white");
         board[0][1] = new ChessPiece("Knight", "white");
         board[0][2] = new ChessPiece("Bishop", "white");
