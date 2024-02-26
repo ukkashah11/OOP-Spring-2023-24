@@ -54,12 +54,12 @@ class User {
 public:
     string name, mobile_number;
     int age;
-    vector<BOGOCoupon> coupons, redeemed_coupons;
+    vector<BOGOCoupon> coupons_list, redeemed_coupons;
     User(string name, string phone, int age) : name(name), mobile_number(phone), age(age) {}
-    void accumulate_coupon(BOGOCoupon coupon) { coupons.push_back(coupon); } //coupon accumulated by inserting BOGOCoupon object in the vector
+    void accumulate_coupon(BOGOCoupon coupon) { coupons_list.push_back(coupon); } //coupon accumulated by inserting BOGOCoupon object in the vector
     int has_valid_coupon(string res_code) {
-        for (int i = 0; i < coupons.size(); i++)
-            if (!is_redeemed(coupons[i]) && coupons[i].is_valid(res_code, 8)) return i; //if a coupons is unredeemed and is valid by resteraunt code & date, index is returned
+        for (int i = 0; i < coupons_list.size(); i++)
+            if (!is_redeemed(coupons_list[i]) && coupons_list[i].is_valid(res_code, 8)) return i; //if a coupons is unredeemed and is valid by resteraunt code & date, index is returned
         return -1;
     }
     bool is_redeemed(BOGOCoupon coupon) {  //iterates through the redeemed coupons vector and checks whether a coupon has been redeemed or not
@@ -68,8 +68,8 @@ public:
         return false;
     }
     bool redeem_coupon(int coupon, string res_code) { 
-        if (!is_redeemed(coupons[coupon]) && coupons[coupon].is_valid(res_code, 8)) { //if coupon is unredeemed and valid, it is redeemed and added to the redeemed coupons vector
-            redeemed_coupons.push_back(coupons[coupon]);
+        if (!is_redeemed(coupons_list[coupon]) && coupons_list[coupon].is_valid(res_code, 8)) { //if coupon is unredeemed and valid, it is redeemed and added to the redeemed coupons vector
+            redeemed_coupons.push_back(coupons_list[coupon]);
             return true; //return true if conditions met
         }
         return false; //returns false if coupon can't be redeemed
@@ -87,7 +87,7 @@ void menu(User u) {
 void get_receipt(User &user, Restaurant &res){
     int index = user.has_valid_coupon(res.restaurant_code);
     cout << "Coupon available" << endl;
-    cout << user.coupons[index].restaurant_code << "-BOGO-" << user.coupons[index].coupon_code << endl; //coupon details printed
+    cout << user.coupons_list[index].restaurant_code << "-BOGO-" << user.coupons_list[index].coupon_code << endl; //coupon details printed
     cout << "Would you like to avail the coupon? (Y/N): ";
     char choice;
     cin >> choice;
