@@ -12,10 +12,10 @@ public:
     vector<float> price_list;
     static int redeemed_coupons;
     string restaurant_code;
-    vector<int> bill; // stores indices of purchased items
+    vector<int> bill; // stores the indices of the purchased menu items
     float total;
     Restaurant(string name, string location, string code, vector<string> menu, vector<float> price) 
-    : restaurant_name(name), location(location), restaurant_code(code), menu_list(menu), price_list(price), total(0)  {}
+    : restaurant_name(name), location(location), restaurant_code(code), menu_list(menu), price_list(price), total(0)  {} //initialises total bill price "total: to 0 by default everytime constructor is called
     void display_menu() {
         for (int i = 0; i < menu_list.size(); i++)
             cout << "[" << i << "]: " <<  menu_list[i] << " -> $" << price_list[i] << endl; 
@@ -26,7 +26,7 @@ public:
             for (int j : bill)
                 if (i == j) count++; 
             if (count >= 2) { 
-                cout << "Discounted: $" << total - price_list[i] << endl; 
+                cout << "Discounted: $" << total - price_list[i] << endl; //the price of one item is subtracted from the total price if more than two quantities of the same item are bought
                 return;
             }
         }
@@ -56,23 +56,23 @@ public:
     int age;
     vector<BOGOCoupon> coupons, redeemed_coupons;
     User(string name, string phone, int age) : name(name), mobile_number(phone), age(age) {}
-    void accumulate_coupon(BOGOCoupon coupon) { coupons.push_back(coupon); }
+    void accumulate_coupon(BOGOCoupon coupon) { coupons.push_back(coupon); } //coupon accumulated by inserting BOGOCoupon object in the vector
     int has_valid_coupon(string res_code) {
         for (int i = 0; i < coupons.size(); i++)
-            if (!is_redeemed(coupons[i]) && coupons[i].is_valid(res_code, 8)) return i;
+            if (!is_redeemed(coupons[i]) && coupons[i].is_valid(res_code, 8)) return i; //if a coupons is unredeemed and is valid by resteraunt code & date, index is returned
         return -1;
     }
-    bool is_redeemed(BOGOCoupon coupon) {
+    bool is_redeemed(BOGOCoupon coupon) {  //iterates through the redeemed coupons vector and checks whether a coupon has been redeemed or not
         for (BOGOCoupon redeemed : redeemed_coupons)
             if (coupon.coupon_code == redeemed.coupon_code) return true;
         return false;
     }
-    bool redeem_coupon(int coupon, string res_code) {
-        if (!is_redeemed(coupons[coupon]) && coupons[coupon].is_valid(res_code, 8)) {
+    bool redeem_coupon(int coupon, string res_code) { 
+        if (!is_redeemed(coupons[coupon]) && coupons[coupon].is_valid(res_code, 8)) { //if coupon is unredeemed and valid, it is redeemed and added to the redeemed coupons vector
             redeemed_coupons.push_back(coupons[coupon]);
-            return true;
+            return true; //return true if conditions met
         }
-        return false;
+        return false; //returns false if coupon can't be redeemed
     }
 };
 
@@ -87,17 +87,17 @@ void menu(User u) {
 void get_receipt(User &user, Restaurant &res){
     int index = user.has_valid_coupon(res.restaurant_code);
     cout << "Coupon available" << endl;
-    cout << user.coupons[index].restaurant_code << "-BOGO-" << user.coupons[index].coupon_code << endl;
-    cout << "Would you like to avail? (Y/N): ";
+    cout << user.coupons[index].restaurant_code << "-BOGO-" << user.coupons[index].coupon_code << endl; //coupon details printed
+    cout << "Would you like to avail the coupon? (Y/N): ";
     char choice;
     cin >> choice;
-    if (choice == 'N' || choice == 'n') {
+    if (choice == 'N' || choice == 'n') { 
         res.generate_bill();
         return;
     }
 
-    res.generate_bill();
-    res.apply_discount(); 
+    res.generate_bill(); 
+    res.apply_discount(); //possible discount applied 
     res.bill.clear(); //erasing all bill elements once receipt is generated & coupon is availed
 }
 
