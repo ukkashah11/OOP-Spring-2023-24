@@ -10,7 +10,11 @@ using namespace std;
   class Test{
     int x,y;
     public:
-    Test(int x=0, int y=0){
+    Test(int x=0, int y=0){    /*The parameter int x = 0 in the constructor of the Test class is an example of a default argument in C++. 
+                                When you define a function or a constructor with a default argument, you are specifying a default value for that parameter. 
+                                This means that if the function or constructor is called without providing a value for that parameter, the default value is used. 
+                                However, if a value is provided for that parameter when calling the function or constructor, 
+                                the provided value is used instead of the default.*/
       this->x=x;
       this->y=y;
     }
