@@ -1,3 +1,4 @@
+//NOTE: this keyword can only be used inside a non-static member function
 #include<iostream>
 using namespace std;
   class A{
