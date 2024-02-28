@@ -1,6 +1,6 @@
 #include<iostream>
 using namespace std;
-inline int cube(int s){ //inline funcs eliminate overhead and mae your program faster but overall size of program may increase
+inline int cube(int s){ //inline funcs eliminate overhead and makes your program faster but overall size of program may increase
   return s*s*s;
 }
 int main(){
