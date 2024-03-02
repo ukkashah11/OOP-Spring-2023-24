@@ -1,7 +1,8 @@
+
 #include<iostream>
 using namespace std;
 int main() {
-int stds;50
+int stds=5;
 int math, eng, sci;
 float avg;
 cout<< "Enter number of students: ";

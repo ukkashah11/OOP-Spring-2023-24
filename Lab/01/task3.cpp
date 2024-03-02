@@ -1,3 +1,4 @@
+
 #include <iostream>
 using namespace std;
 void findTarget(int size, int arr[], int target){

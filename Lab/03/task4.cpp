@@ -1,3 +1,6 @@
+/*Syed Ukkashah Ahmed Shah
+  23K-0055
+*/
 #include <iostream>
 using namespace std;
 class Smartphone{
