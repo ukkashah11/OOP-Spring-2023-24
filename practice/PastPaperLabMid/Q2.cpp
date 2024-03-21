@@ -49,6 +49,14 @@ class User{
         return nullptr;
 }
 };
+class Comment {
+    static int id;
+    int commentId;
+    string content;
+    User* user;
+public:
+    Comment(string c, User* u): user(u), content(c){id++;commentId=id;}
+};
 class Post{
     static int id;
     int postId;
@@ -81,14 +89,6 @@ class Post{
     }
 
 };
-class Comment {
-    static int id;
-    int commentId;
-    string content;
-    User* user;
-public:
-    Comment(string c, User* u);
-};
 class SocialMediaPlatform{
     User* users[SIZE];
     public:
@@ -111,30 +111,6 @@ class SocialMediaPlatform{
         return nullptr;
 }
 };
-User::User(string un) : userName(un) {
-    id++;
-    userId = id;
-    for (int i = 0; i < SIZE; ++i) posts[i] = nullptr;  // Initialize pointers to nullptr
-}
-
-void User::createPost(Post* p) {
-    // Implementation...
-}
-
-Post* User::searchPost(int id) {
-    // Implementation...
-}
-
-// Implementations of the Post methods that require Comment
-Post::Post(string c) : content(c) {
-    id++;
-    postId = id;
-    for (int i = 0; i < SIZE; ++i) comments[i] = nullptr;  // Initialize pointers to nullptr
-}
-
-// Implementations of the Comment methods
-Comment::Comment(string c, User* u) : content(c), user(u) {
-    id++;
 int main(){
     int c, id;
     string name, content;
@@ -198,4 +174,5 @@ int main(){
         defualt:cout<<"Invalid input"<<endl;
     }
 }
+return 0;
 }
