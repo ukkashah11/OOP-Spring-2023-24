@@ -85,6 +85,7 @@ void Enemy::attack(Character* c){
    }
 int main()
 {
+    cout<<"SYED UKKASHAH\n23K-0055\n\n";
     Character c("Kratos");
     Enemy e("Zeus", 10);
     for (int i = 0; i < 3; i++) {

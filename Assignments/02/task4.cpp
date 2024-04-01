@@ -155,6 +155,7 @@ class BusinessUser: public RegularUser{
 Post* BusinessUser:: feed[MAX_FEED_SIZE] = {nullptr};
 int BusinessUser::cnt;
 int main(){
+    cout<<"SYED UKKASHAH\n23K-0055\n\n";
     cout<<"Regular user interactions:\n\n";
     RegularUser u1("ukkashah11", "k230055@nu.edu.pk", "uk456");
     RegularUser u2("ukkashah22", "453mdksn", "ksmkf"); // Invalid email example, regex check returns false as email format is incorrect
