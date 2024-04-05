@@ -22,7 +22,7 @@ class B : public A{
 int main(){
   A* ptr; 
   B b;
-  ptr = &b; //when a parent class ptr is assigned to the address of the derived class object, it is called downcasting
+  ptr = &b; //when a parent class ptr is assigned to the address of the derived class object, it is called upcasting
   ptr->hello(); //base class func is called since hello in derived is not overrided (virtual keyword not used)
   ptr->display(); /*derived class func is called since display has been overrided (virtual keyword used).
                     (DYNAMIC/RUN TIME POLYMORPHISM, LATE BINDING)*/
