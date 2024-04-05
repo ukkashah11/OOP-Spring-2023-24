@@ -24,6 +24,8 @@ int main(){
   B b;
   ptr = &b;
   ptr->hello(); //base class func is called since hello in derived is not overrided (virtual keyword not used)
-  ptr->display(); //derived class func is called since display has been overrided (virtual keyword used)
+  ptr->display(); /*derived class func is called since display has been overrided (virtual keyword used).
+                    (DYNAMIC/RUN TIME POLYMORPHISM, LATE BINDING)*/
+                    
   return 0;
 }
