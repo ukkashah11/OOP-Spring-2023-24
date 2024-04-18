@@ -22,4 +22,5 @@ int main()
     shape shape3 = shape1+shape2;
     cout<<"Area of shape 3 is: ";
     shape3.print();
+	return 0;
 }
