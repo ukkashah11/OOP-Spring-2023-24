@@ -1,38 +1,53 @@
-#include<iostream>
+/*
+Name: Syed Ukkashah
+id:23k-0055
+*/
+#include <iostream>
+
 using namespace std;
 
-class OverloadDecrement {
-    int num;
-public:
-    OverloadDecrement(int n) : num(n) {}
+class Number {
+private:
+    int value;
 
-    // Prefix decrement operator overload
-    OverloadDecrement& operator--() {
-        num *= 4;
+public:
+    //parameterized constructor with initializer list
+    Number(int val) : value(val) {}
+
+    //overloading prefix decrement operator
+    Number operator--() {
+        value *= 4;
         return *this;
     }
 
-    // Postfix decrement operator overload
-    OverloadDecrement operator--(int) {
-        OverloadDecrement temp(num);
-        num /= 4;
+    //postfix overload so int parameter is added
+    Number operator--(int) {
+        Number temp(value);
+        value /=4;
         return temp;
     }
 
-    void print() {
-        cout << num << endl;
+    // Method to display the value of the number
+    void display() const {
+        cout << "Value: " << value << endl;
     }
 };
 
 int main() {
-    OverloadDecrement od(5);
-    cout << "Prefix decrement: ";
-    --od;
-    od.print();
+    Number num(8);
 
-    cout << "Postfix decrement: ";
-    od--;
-    od.print();
+    cout << "Original Value:" << endl;
+    num.display();
+
+    // Prefix decrement
+    --num;
+    cout << "Value after Prefix Decrement:" << endl;
+    num.display();
+
+    // Postfix decrement
+    num--;
+    cout << "Value after Postfix Decrement:" << endl;
+    num.display();
 
     return 0;
 }
