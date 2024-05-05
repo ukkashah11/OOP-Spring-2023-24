@@ -35,6 +35,7 @@ class Bird: public Pet<string, int>
 };
 int main()
 {
+    cout<<"Syed Ukkashah Ahmed Shah\n23K-0055\n"<<endl;
     Pet<string, int>* ptr;
     Bird bird ("Rio", 3);
     Cat cat ("Tom", 5);
@@ -48,6 +49,4 @@ int main()
     ptr = &dog;
     ptr->makeSound();
     ptr->display();
-
-
 }
